@@ -30,9 +30,10 @@ class CRUD():
 
     def remover produto
 
-    def listar produtos por criterio (marcar/preco)
+    def listar produtos por criterio (marcar/preco/nome)
 
     def exibir dados do produto
+
     '''
 
 def main(): 
