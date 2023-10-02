@@ -5,7 +5,7 @@ class CRUD():
         self.connection = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            password = '@Me130626',
+            password = 'password', #sua senha
             database = 'base',
         )
         self.cursor = self.connection.cursor()
@@ -22,7 +22,7 @@ class CRUD():
         self.connection.commit()
     
     '''
-    def alterar preco
+    def alterar preco do produto
 
     def pesquisar produto por nome
 
@@ -30,14 +30,13 @@ class CRUD():
 
     def remover produto
 
-    def listar produtos por criterio
+    def listar produtos por criterio (marcar/preco)
 
     def exibir dados do produto
     '''
 
 def main(): 
     c = CRUD()
-    c.register(104, 'feijao', 'cometa', 8.0)
     c.close()
 
 main()
