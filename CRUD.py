@@ -5,7 +5,7 @@ class CRUD():
         self.connection = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            password = 'password', #sua senha
+            password = '@Me130626', #sua senha
             database = 'base',
         )
         self.cursor = self.connection.cursor()
@@ -21,16 +21,35 @@ class CRUD():
         self.cursor.execute(query, values)
         self.connection.commit()
     
+    def alterPrice(self, cod, newPrice):
+        query = 'UPDATE product SET productPrice = %s WHERE productCod = %s'
+        values = (newPrice, cod)
+        self.cursor.execute(query, values)
+        self.connection.commit()
+
+    def searchByName(self, name):
+        query = 'SELECT * FROM product WHERE productName = %s'
+        values = (name,)
+        self.cursor.execute(query, values)
+        result = self.cursor.fetchall()
+        return result
+
+    def searchByBrand(self, brand):
+        query = 'SELECT * FROM product WHERE productBrand = %s'
+        values = (brand,)
+        self.cursor.execute(query, values)
+        result = self.cursor.fetchall()
+        return result
+
+    def searchByCod(self, cod):
+        query = 'SELECT * FROM product WHERE productCod = %s'
+        values = (cod,)
+        self.cursor.execute(query, values)
+        result = self.cursor.fetchall()
+        return result
+
     '''
-    def alterar preco do produto
-
-    def pesquisar produto por nome
-
-    def pesquisar produto por marcar
-
     def remover produto
-
-    def listar produtos por criterio (marcar/preco/nome)
 
     def exibir dados do produto
 
@@ -38,6 +57,10 @@ class CRUD():
 
 def main(): 
     c = CRUD()
+    
+    result = c.searchByName("leite")
+    print(result)
+
     c.close()
 
 main()
