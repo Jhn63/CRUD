@@ -73,16 +73,22 @@ class CRUD():
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
-<<<<<<< HEAD
-    
-=======
+
+def showMenu():
+    print('-' * 42)
+    print("Menu".center(42))
+    print('-' * 42)
+
+    options = ["1 - Cadastrar novo produto","2 - Remover produto", "3 - Pesquisar"]
+    for op in options:
+        print(op.center(42))
+    print('-' * 42)
+
 
 def main():
-    c = CRUD()
-
-    result = c.listAllProducts()
-    print(result)
->>>>>>> 36ac005257cbf666fe895701fcd8e3cea7734005
+    showMenu()
+    op = input()
+    print(op)
 
     c = CRUD()
     c.close()
