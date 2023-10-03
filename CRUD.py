@@ -55,12 +55,10 @@ class CRUD():
 
     '''
 
-def main(): 
-    c = CRUD()
+def main():
     
-    result = c.searchByName("leite")
-    print(result)
 
+    c = CRUD()
     c.close()
 
 main()
