@@ -78,8 +78,56 @@ def main():
     c = CRUD()
 
     result = c.listAllProducts()
-    print(result)
+    #print(result)
+
+    print("\n------------ Mercadinho -------------\n")
+    print("1 -  Cadastrar produto")
+    print("2 -  Alterar preço do produto")
+    print("3 -  Pesquisar produto por nome")
+    print("4 -  Pesquisar produto por marca")
+    print("5 -  Pesquisar produto por código")
+    print("6 -  Remover produto")
+    print("7 -  Exibir dados do produto")
+    print("8 -  Listar todos os produtos cadastrados")
+
+    print("\n0 -  Sair")
+
+    opcao = input("\nEscolha uma opção: ")
+
+    if opcao == "1":
+      name_register = input('Informe o nome do produto: ')
+      cod_register = input('Informe o código do produto: ')
+      brand_register = input('Informe a marca do produto: ')
+      price_register = input('Informe o preço do produto: ')
+      c.register(cod_register, name_register, brand_register, price_register) #Create
+    elif opcao == "2":
+      cod_alter = input('Informe o código do  produto cujo preço deseja alterar: ')
+      newPrice = input('Novo preço: ')
+      c.alterPrice(cod_alter, newPrice) #Update
+    elif opcao == "3":
+      name_search = input('Informe o nome do produto que procura: ')
+      c.searchByName(name_search) #Read
+    elif opcao == "4":
+      brand_search = input('Informe a marca do produto que procura: ')
+      c.searchByBrand(brand_search)
+    elif opcao == "5":
+      cod_search = input('Informe o código do produto que procura: ')
+      c.searchByCod(cod_search)
+    elif opcao == "6":
+      cod_remove = input('Informe o código do produto que deseja remover: ')
+      c.removeProd(cod_remove) #Delete
+    elif opcao == "7":
+      cod_info = input('Código do produto que busca informações: ')
+      c.showProdData(cod_info)
+    elif opcao == "8":
+      c.listAllProducts()
+    elif opcao == "0":
+      print("Saindo...")
+      break
+    else:
+      print("Opção inválida. Tente novamente.")
+
 
     c.close()
-    
+
 main()
