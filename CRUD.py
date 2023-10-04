@@ -5,7 +5,7 @@ class CRUD():
         self.connection = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            password = '@Me130626', #sua senha
+            password = 'password', #sua senha
             database = 'base',
         )
         self.cursor = self.connection.cursor()
@@ -15,9 +15,9 @@ class CRUD():
         self.connection.close()
 
     # registrar produto na tabela
-    def register(self, cod, name, brand, price):
-        query = 'INSERT INTO product (productCod, productName, productBrand, productPrice) VALUES (%s, %s, %s, %s)'
-        values = (cod, name, brand, price)
+    def register(self, cod, name, measure, brand, price):
+        query = 'INSERT INTO product (productCod, productName, productMeasure, productBrand, productPrice) VALUES (%s, %s, %s, %s, %s)'
+        values = (cod, name, measure, brand, price)
         self.cursor.execute(query, values)
         self.connection.commit()
 
@@ -30,8 +30,8 @@ class CRUD():
 
     # Pesquisa pelo nome
     def searchByName(self, name):
-        query = 'SELECT * FROM product WHERE productName = %s'
-        values = (name,)
+        query = 'SELECT * FROM product WHERE productName LIKE %s'
+        values = ('%'+name+'%',)
         self.cursor.execute(query, values)
         result = self.cursor.fetchall()
         show(result)
@@ -90,10 +90,11 @@ def main():
     	if opcao == "1":
             try:
                 name_register = input('Informe o nome do produto: ')
+                measure_register = input('Informe a medida unitária do produto: ')
                 cod_register = input('Informe o código do produto: ')
                 brand_register = input('Informe a marca do produto: ')
                 price_register = input('Informe o preço do produto: ')
-                c.register(cod_register, name_register, brand_register, price_register) #Create
+                c.register(cod_register, name_register, measure_register, brand_register, price_register) #Create
             except mysql.connector.IntegrityError as e:
                 print("\nO código de registro já existe na base de dados")
             except mysql.connector.errors.DatabaseError as e:
@@ -113,11 +114,11 @@ def main():
 
     	elif opcao == "4":
       		brand_search = input('Informe a marca do produto que procura: ')
-      		c.searchByBrand(brand_search)
+      		c.searchByBrand(brand_search) #Read
 
     	elif opcao == "5":
       		cod_search = input('Informe o código do produto que procura: ')
-      		c.searchByCod(cod_search)
+      		c.searchByCod(cod_search) #Read
 
     	elif opcao == "6":
             cod_remove = input('Informe o código do produto que deseja remover: ')
@@ -125,7 +126,7 @@ def main():
             print("\nregistro deletado como sucesso")
 
     	elif opcao == "7":
-      		c.listAllProducts()
+      		c.listAllProducts() #Read
 
     	elif opcao == "0":
       		print("Saindo...")
