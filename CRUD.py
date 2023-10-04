@@ -34,7 +34,7 @@ class CRUD():
         values = (name,)
         self.cursor.execute(query, values)
         result = self.cursor.fetchall()
-        return result
+        show(result)
 
     # Pesquisa pela marca
     def searchByBrand(self, brand):
@@ -42,7 +42,7 @@ class CRUD():
         values = (brand,)
         self.cursor.execute(query, values)
         result = self.cursor.fetchall()
-        return result
+        show(result)
 
     # Pesquisa pelo código (id)
     def searchByCod(self, cod):
@@ -50,7 +50,7 @@ class CRUD():
         values = (cod,)
         self.cursor.execute(query, values)
         result = self.cursor.fetchall()
-        return result
+        show(result)
 
     # Remove produto
     def removeProd(self, cod):
@@ -61,7 +61,7 @@ class CRUD():
 
     # Exibe os dados do produto
     def showProdData(self, cod):
-        query = 'SELECT * FROM product WHERE productCod = %s'
+        q9uery = 'SELECT * FROM product WHERE productCod = %s'
         values = (cod,)
         self.cursor.execute(query, values)
         result = self.cursor.fetchone()
@@ -71,26 +71,77 @@ class CRUD():
     def listAllProducts(self):
         query = "SELECT * FROM product"
         self.cursor.execute(query)
-        return self.cursor.fetchall()
+        result = self.cursor.fetchall()
+        show(result)
 
-
-def showMenu():
-    print('-' * 42)
-    print("Menu".center(42))
-    print('-' * 42)
-
-    options = ["1 - Cadastrar novo produto","2 - Remover produto", "3 - Pesquisar"]
-    for op in options:
-        print(op.center(42))
-    print('-' * 42)
-
+def show(data):
+    print()
+    for i in data:
+        print(i)
 
 def main():
-    showMenu()
-    op = input()
-    print(op)
-
     c = CRUD()
+    while True:
+    	print("\n------------ Mercadinho -------------\n")
+    	print("1 -  Cadastrar produto")
+    	print("2 -  Alterar preço do produto")
+    	print("3 -  Pesquisar produto por nome")
+    	print("4 -  Pesquisar produto por marca")
+    	print("5 -  Pesquisar produto por código")
+    	print("6 -  Remover produto")
+    	print("7 -  Listar todos os produtos cadastrados")
+	
+    	print("\n0 -  Sair")
+	
+    	opcao = input("\nEscolha uma opção: ")
+	
+    	if opcao == "1":
+            try:
+                name_register = input('Informe o nome do produto: ')
+                cod_register = input('Informe o código do produto: ')
+                brand_register = input('Informe a marca do produto: ')
+                price_register = input('Informe o preço do produto: ')
+                c.register(cod_register, name_register, brand_register, price_register) #Create
+            except mysql.connector.IntegrityError as e:
+                print("\nO código de registro já existe na base de dados")
+            except mysql.connector.errors.DatabaseError as e:
+                print("\nErro: valor inserido em campo inválido")
+            else:
+                print("\nproduto registrado com sucesso")
+
+    	elif opcao == "2":
+            cod_alter = input('Informe o código do  produto cujo preço deseja alterar: ')
+            newPrice = input('Novo preço: ')
+            c.alterPrice(cod_alter, newPrice) #Update
+            print("\npreço atualizado com sucesso")
+
+    	elif opcao == "3":
+      		name_search = input('Informe o nome do produto que procura: ')
+      		c.searchByName(name_search) #Read
+
+    	elif opcao == "4":
+      		brand_search = input('Informe a marca do produto que procura: ')
+      		c.searchByBrand(brand_search)
+
+    	elif opcao == "5":
+      		cod_search = input('Informe o código do produto que procura: ')
+      		c.searchByCod(cod_search)
+
+    	elif opcao == "6":
+            cod_remove = input('Informe o código do produto que deseja remover: ')
+            c.removeProd(cod_remove) #Delete
+            print("\nregistro deletado como sucesso")
+
+    	elif opcao == "7":
+      		c.listAllProducts()
+
+    	elif opcao == "0":
+      		print("Saindo...")
+      		break
+
+    	else:
+            print("Opção inválida. Tente novamente.")
+
     c.close()
-    
+
 main()
