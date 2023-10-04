@@ -59,14 +59,6 @@ class CRUD():
         self.cursor.execute(query, values)
         self.connection.commit()
 
-    # Exibe os dados do produto
-    def showProdData(self, cod):
-        q9uery = 'SELECT * FROM product WHERE productCod = %s'
-        values = (cod,)
-        self.cursor.execute(query, values)
-        result = self.cursor.fetchone()
-        return result
-
     # Lista todos os produtos
     def listAllProducts(self):
         query = "SELECT * FROM product"
