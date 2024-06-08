@@ -1,0 +1,19 @@
+.painel {
+    background-color: lightblue;
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    margin-left: 100px;
+}
+
+.left-side-painel,
+.right-side-painel {
+    display: inline-block;
+    background-color: lightgray;
+    margin: 2px;
+    align-items: center;
+}
+
+.left-side-painel {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,18 @@
+.side-bar {
+  background-color: lightcoral;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0px auto 0px 0px;
+  width: 100px;
+}
+
+.side-bar button {
+  height: 80px;
+  margin: 5px 3px;
+}
+
+.painel {
+  background-color: lightblue;
+  margin-left: 100px;
+}

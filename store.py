@@ -5,7 +5,7 @@ class StoreManager():
         self.connection = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            password = '@Me130626', #sua senha
+            password = 'senha', #sua senha
             database = 'store',
         )
         self.cursor = self.connection.cursor()
