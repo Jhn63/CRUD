@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block head %}
+  <title> Estoque </title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/painel.css')}}">
+{% endblock %}
+
+{% block painel %}
+  <div class="left-side-painel">
+
+    <div class = search-bar>
+      <input type="text">
+      <button> E </button>
+    </div>
+
+  </div>
+
+  <div class="right-side-painel">
+    Cadastros de Clientes
+  </div>
+{% endblock %}
