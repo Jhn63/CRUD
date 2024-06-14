@@ -5,7 +5,7 @@ class StoreManager():
         self.connection = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            password = 'senha', #sua senha
+            password = '@Me130626', #sua senha
             database = 'store',
         )
         self.cursor = self.connection.cursor()
@@ -13,6 +13,20 @@ class StoreManager():
     def close(self):
         self.cursor.close()
         self.connection.close()
+
+    # carregar produtos cadastrados
+    def see_all_products(self):
+        query = 'SELECT * FROM produto'
+        self.cursor.execute(query)
+        products = self.cursor.fetchall()
+        return products
+    
+    # carregar clientes cadastrados
+    def see_all_clients(self):
+        query = 'SELECT * FROM cliente'
+        self.cursor.execute(query)
+        clients = self.cursor.fetchall()
+        return clients
 
     # registrar produto
     def register_product(self, name, categ, brand, descript, stored, price):

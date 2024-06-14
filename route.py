@@ -1,5 +1,8 @@
 from flask import Flask, render_template
+from store import StoreManager
+
 app = Flask(__name__)
+db = StoreManager()
 
 @app.route('/')
 @app.route('/main')
@@ -8,8 +11,10 @@ def main_page():
 
 @app.route('/clients')
 def clients_page():
-    return render_template('clients.html')
+    result = db.see_all_clients()
+    return render_template('clients.html', result=result)
 
 @app.route('/storage')
 def storage_page():
-    return render_template('storage.html')
+    result = db.see_all_products()
+    return render_template('storage.html', result=result)
