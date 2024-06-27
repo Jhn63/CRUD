@@ -11,10 +11,10 @@ def main_page():
 
 @app.route('/clients')
 def clients_page():
-    result = db.see_all_clients()
+    result = db.search_tuples(table='cliente')
     return render_template('clients.html', result=result)
 
 @app.route('/storage')
 def storage_page():
-    result = db.see_all_products()
+    result = db.search_tuples(table='produto')
     return render_template('storage.html', result=result)

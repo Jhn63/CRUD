@@ -2,15 +2,17 @@
 
 {% block head %}
   <title> Estoque </title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/painel.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/painel.css') }}">
 {% endblock %}
 
 {% block painel %}
   <div class="left-side-painel">
 
-    <div class = search-bar>
-      <input type="text">
-      <button> E </button>
+    <div class = "search-bar">
+      <form action="/search" method="get">
+        <input type="text" name="query">
+        <button type="submit"> E </button>
+      </form>
     </div>
 
   </div>

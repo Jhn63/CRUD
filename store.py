@@ -5,7 +5,7 @@ class StoreManager():
         self.connection = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            password = '@Me130626', #sua senha
+            password = '@', #sua senha
             database = 'store',
         )
         self.cursor = self.connection.cursor()
@@ -14,19 +14,20 @@ class StoreManager():
         self.cursor.close()
         self.connection.close()
 
-    # carregar produtos cadastrados
-    def see_all_products(self):
-        query = 'SELECT * FROM produto'
+    # realizar busca filtrada ou generica em uma tabela
+    def search_tuples(self, table='', id='', name=''):
+        if not table:
+            return None
+
+        query = f'SELECT * FROM {table}'
+        if id != '':
+            query += f' WHERE id_{table} = {id}'
+        elif name != '':
+            query += f' WHERE nome_{table} LIKE \'%{name}%\''
+
         self.cursor.execute(query)
-        products = self.cursor.fetchall()
-        return products
-    
-    # carregar clientes cadastrados
-    def see_all_clients(self):
-        query = 'SELECT * FROM cliente'
-        self.cursor.execute(query)
-        clients = self.cursor.fetchall()
-        return clients
+        tuples = self.cursor.fetchall()
+        return tuples
 
     # registrar produto
     def register_product(self, name, categ, brand, descript, stored, price):
